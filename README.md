@@ -9,8 +9,8 @@ DONE:
 
 TO DO:
 
-- [] Automatically pull data
-- [] Update image/text based on automatic data
-- [] Add styling
-- [] Create Idle page
-- [] Host on RPI
+- [ ] Automatically pull data
+- [ ] Update image/text based on automatic data
+- [ ] Add styling
+- [ ] Create Idle page
+- [ ] Host on RPI
