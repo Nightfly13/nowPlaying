@@ -1,532 +1,72 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Buffer } from "buffer";
 
-const data = {
-  device: {},
-  shuffle_state: true,
-  smart_shuffle: false,
-  repeat_state: "off",
-  timestamp: 1717848144029,
-  context: {
-    external_urls: {
-      spotify: "https://open.spotify.com/playlist/3nuAFWNuv9lC5uhrsC8U5t",
-    },
-    href: "https://api.spotify.com/v1/playlists/3nuAFWNuv9lC5uhrsC8U5t",
-    type: "playlist",
-    uri: "spotify:playlist:3nuAFWNuv9lC5uhrsC8U5t",
-  },
-  progress_ms: 8500,
-  item: {
-    album: {
-      album_type: "album",
-      artists: [
-        {
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/5BIOo2mCAokFcLHXO2Llb4",
-          },
-          href: "https://api.spotify.com/v1/artists/5BIOo2mCAokFcLHXO2Llb4",
-          id: "5BIOo2mCAokFcLHXO2Llb4",
-          name: "Kublai Khan TX",
-          type: "artist",
-          uri: "spotify:artist:5BIOo2mCAokFcLHXO2Llb4",
-        },
-      ],
-      available_markets: [
-        "AR",
-        "AU",
-        "AT",
-        "BE",
-        "BO",
-        "BR",
-        "BG",
-        "CA",
-        "CL",
-        "CO",
-        "CR",
-        "CY",
-        "CZ",
-        "DK",
-        "DO",
-        "DE",
-        "EC",
-        "EE",
-        "SV",
-        "FI",
-        "FR",
-        "GR",
-        "GT",
-        "HN",
-        "HK",
-        "HU",
-        "IS",
-        "IE",
-        "IT",
-        "LV",
-        "LT",
-        "LU",
-        "MY",
-        "MT",
-        "MX",
-        "NL",
-        "NZ",
-        "NI",
-        "NO",
-        "PA",
-        "PY",
-        "PE",
-        "PH",
-        "PL",
-        "PT",
-        "SG",
-        "SK",
-        "ES",
-        "SE",
-        "CH",
-        "TW",
-        "TR",
-        "UY",
-        "US",
-        "GB",
-        "AD",
-        "LI",
-        "MC",
-        "ID",
-        "JP",
-        "TH",
-        "VN",
-        "RO",
-        "IL",
-        "ZA",
-        "SA",
-        "AE",
-        "BH",
-        "QA",
-        "OM",
-        "KW",
-        "EG",
-        "MA",
-        "DZ",
-        "TN",
-        "LB",
-        "JO",
-        "PS",
-        "IN",
-        "BY",
-        "KZ",
-        "MD",
-        "UA",
-        "AL",
-        "BA",
-        "HR",
-        "ME",
-        "MK",
-        "RS",
-        "SI",
-        "KR",
-        "BD",
-        "PK",
-        "LK",
-        "GH",
-        "KE",
-        "NG",
-        "TZ",
-        "UG",
-        "AG",
-        "AM",
-        "BS",
-        "BB",
-        "BZ",
-        "BT",
-        "BW",
-        "BF",
-        "CV",
-        "CW",
-        "DM",
-        "FJ",
-        "GM",
-        "GE",
-        "GD",
-        "GW",
-        "GY",
-        "HT",
-        "JM",
-        "KI",
-        "LS",
-        "LR",
-        "MW",
-        "MV",
-        "ML",
-        "MH",
-        "FM",
-        "NA",
-        "NR",
-        "NE",
-        "PW",
-        "PG",
-        "PR",
-        "WS",
-        "SM",
-        "ST",
-        "SN",
-        "SC",
-        "SL",
-        "SB",
-        "KN",
-        "LC",
-        "VC",
-        "SR",
-        "TL",
-        "TO",
-        "TT",
-        "TV",
-        "VU",
-        "AZ",
-        "BN",
-        "BI",
-        "KH",
-        "CM",
-        "TD",
-        "KM",
-        "GQ",
-        "SZ",
-        "GA",
-        "GN",
-        "KG",
-        "LA",
-        "MO",
-        "MR",
-        "MN",
-        "NP",
-        "RW",
-        "TG",
-        "UZ",
-        "ZW",
-        "BJ",
-        "MG",
-        "MU",
-        "MZ",
-        "AO",
-        "CI",
-        "DJ",
-        "ZM",
-        "CD",
-        "CG",
-        "IQ",
-        "LY",
-        "TJ",
-        "VE",
-        "ET",
-        "XK",
-      ],
-      external_urls: {
-        spotify: "https://open.spotify.com/album/38mLnAiZLCLqUjs4DzOZdG",
-      },
-      href: "https://api.spotify.com/v1/albums/38mLnAiZLCLqUjs4DzOZdG",
-      id: "38mLnAiZLCLqUjs4DzOZdG",
-      images: [
-        {
-          height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b2739144be5f21085870ac0dbb2a",
-          width: 640,
-        },
-        {
-          height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e029144be5f21085870ac0dbb2a",
-          width: 300,
-        },
-        {
-          height: 64,
-          url: "https://i.scdn.co/image/ab67616d000048519144be5f21085870ac0dbb2a",
-          width: 64,
-        },
-      ],
-      name: "Absolute",
-      release_date: "2019-10-04",
-      release_date_precision: "day",
-      total_tracks: 10,
-      type: "album",
-      uri: "spotify:album:38mLnAiZLCLqUjs4DzOZdG",
-    },
-    artists: [
-      {
-        external_urls: {
-          spotify: "https://open.spotify.com/artist/5BIOo2mCAokFcLHXO2Llb4",
-        },
-        href: "https://api.spotify.com/v1/artists/5BIOo2mCAokFcLHXO2Llb4",
-        id: "5BIOo2mCAokFcLHXO2Llb4",
-        name: "Kublai Khan TX",
-        type: "artist",
-        uri: "spotify:artist:5BIOo2mCAokFcLHXO2Llb4",
-      },
-    ],
-    available_markets: [
-      "AR",
-      "AU",
-      "AT",
-      "BE",
-      "BO",
-      "BR",
-      "BG",
-      "CA",
-      "CL",
-      "CO",
-      "CR",
-      "CY",
-      "CZ",
-      "DK",
-      "DO",
-      "DE",
-      "EC",
-      "EE",
-      "SV",
-      "FI",
-      "FR",
-      "GR",
-      "GT",
-      "HN",
-      "HK",
-      "HU",
-      "IS",
-      "IE",
-      "IT",
-      "LV",
-      "LT",
-      "LU",
-      "MY",
-      "MT",
-      "MX",
-      "NL",
-      "NZ",
-      "NI",
-      "NO",
-      "PA",
-      "PY",
-      "PE",
-      "PH",
-      "PL",
-      "PT",
-      "SG",
-      "SK",
-      "ES",
-      "SE",
-      "CH",
-      "TW",
-      "TR",
-      "UY",
-      "US",
-      "GB",
-      "AD",
-      "LI",
-      "MC",
-      "ID",
-      "JP",
-      "TH",
-      "VN",
-      "RO",
-      "IL",
-      "ZA",
-      "SA",
-      "AE",
-      "BH",
-      "QA",
-      "OM",
-      "KW",
-      "EG",
-      "MA",
-      "DZ",
-      "TN",
-      "LB",
-      "JO",
-      "PS",
-      "IN",
-      "BY",
-      "KZ",
-      "MD",
-      "UA",
-      "AL",
-      "BA",
-      "HR",
-      "ME",
-      "MK",
-      "RS",
-      "SI",
-      "KR",
-      "BD",
-      "PK",
-      "LK",
-      "GH",
-      "KE",
-      "NG",
-      "TZ",
-      "UG",
-      "AG",
-      "AM",
-      "BS",
-      "BB",
-      "BZ",
-      "BT",
-      "BW",
-      "BF",
-      "CV",
-      "CW",
-      "DM",
-      "FJ",
-      "GM",
-      "GE",
-      "GD",
-      "GW",
-      "GY",
-      "HT",
-      "JM",
-      "KI",
-      "LS",
-      "LR",
-      "MW",
-      "MV",
-      "ML",
-      "MH",
-      "FM",
-      "NA",
-      "NR",
-      "NE",
-      "PW",
-      "PG",
-      "PR",
-      "WS",
-      "SM",
-      "ST",
-      "SN",
-      "SC",
-      "SL",
-      "SB",
-      "KN",
-      "LC",
-      "VC",
-      "SR",
-      "TL",
-      "TO",
-      "TT",
-      "TV",
-      "VU",
-      "AZ",
-      "BN",
-      "BI",
-      "KH",
-      "CM",
-      "TD",
-      "KM",
-      "GQ",
-      "SZ",
-      "GA",
-      "GN",
-      "KG",
-      "LA",
-      "MO",
-      "MR",
-      "MN",
-      "NP",
-      "RW",
-      "TG",
-      "UZ",
-      "ZW",
-      "BJ",
-      "MG",
-      "MU",
-      "MZ",
-      "AO",
-      "CI",
-      "DJ",
-      "ZM",
-      "CD",
-      "CG",
-      "IQ",
-      "LY",
-      "TJ",
-      "VE",
-      "ET",
-      "XK",
-    ],
-    disc_number: 1,
-    duration_ms: 139202,
-    explicit: true,
-    external_ids: {
-      isrc: "QMRSZ1901777",
-    },
-    external_urls: {
-      spotify: "https://open.spotify.com/track/2eqjpko1AQuTdxkBFhAcRG",
-    },
-    href: "https://api.spotify.com/v1/tracks/2eqjpko1AQuTdxkBFhAcRG",
-    id: "2eqjpko1AQuTdxkBFhAcRG",
-    is_local: false,
-    name: "Self-Destruct",
-    popularity: 59,
-    preview_url:
-      "https://p.scdn.co/mp3-preview/c90b5b8ca65816d4f6fb35ed26b3c5fbb6990932?cid=271a1f5415c24fbe8534a00799ddcd97",
-    track_number: 5,
-    type: "track",
-    uri: "spotify:track:2eqjpko1AQuTdxkBFhAcRG",
-  },
-  currently_playing_type: "track",
-  actions: {
-    disallows: {
-      resuming: true,
-    },
-  },
-  is_playing: true,
-};
-
-const client_id = "";
-const client_secret = "";
+const client_id = import.meta.env.VITE_CLIENT_ID;
+const client_secret = import.meta.env.VITE_CLIENT_SECRET;
 let token = "";
 
-const authOptions = {
-  url: "https://accounts.spotify.com/api/token",
-  headers: {
-    Authorization:
-      "Basic " +
-      Buffer.from(client_id + ":" + client_secret).toString("base64"),
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-  data: new URLSearchParams({
-    grant_type: "client_credentials",
-  }).toString(),
+const getBearerToken = () => {
+  const authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    headers: {
+      Authorization:
+        "Basic " +
+        Buffer.from(client_id + ":" + client_secret).toString("base64"),
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    data: new URLSearchParams({
+      grant_type: "client_credentials",
+    }).toString(),
+  };
+
+  axios
+    .post(authOptions.url, authOptions.data, { headers: authOptions.headers })
+    .then((response) => {
+      if (response.status === 200) {
+        token = response.data.access_token;
+        console.log(`inside token bearer ${token}`);
+        //getPlaybackState(token);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching token:", error);
+    });
+
+  return token;
 };
 
-axios
-  .post(authOptions.url, authOptions.data, { headers: authOptions.headers })
-  .then((response) => {
-    if (response.status === 200) {
-      token = response.data.access_token;
-      return token;
-    }
-  })
-  .catch((error) => {
-    console.error("Error fetching token:", error);
-  });
+const getPlaybackState = ({ token }) => {
+  console.log(`inside playback state ${token}`);
+  let config = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: "https://api.spotify.com/v1/me/player",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-let config = {
-  method: "get",
-  maxBodyLength: Infinity,
-  url: "https://api.spotify.com/v1/me/player",
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
+  axios
+    .request(config)
+    .then((response) => {
+      setData(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
-
-axios
-  .request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 
 function App() {
-  //const [data, setData] = useState({});
+  const [token, setToken] = useState("");
+  const [data, setData] = useState("");
 
-  return (
+  useEffect(() => {
+    console.log("effect");
+    getBearerToken();
+  }, []);
+
+  /* return (
     <>
       <div>
         <img src={data.item.album.images[0].url} alt="Image" />
@@ -534,6 +74,12 @@ function App() {
       <p>Song: {data.item.name}</p>
       <p>Artist: {data.item.album.artists[0].name}</p>
       <p>Album: {data.item.album.name}</p>
+    </>
+  ); */
+
+  return (
+    <>
+      <div>;-;</div>
     </>
   );
 }
