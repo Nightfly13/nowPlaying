@@ -1,4 +1,6 @@
-//import { useState } from "react";
+import { useState } from "react";
+import axios from "axios";
+import { Buffer } from "buffer";
 
 const data = {
   device: {},
@@ -474,7 +476,56 @@ const data = {
   is_playing: true,
 };
 
+const client_id = "";
+const client_secret = "";
+let token = "";
+
+const authOptions = {
+  url: "https://accounts.spotify.com/api/token",
+  headers: {
+    Authorization:
+      "Basic " +
+      Buffer.from(client_id + ":" + client_secret).toString("base64"),
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+  data: new URLSearchParams({
+    grant_type: "client_credentials",
+  }).toString(),
+};
+
+axios
+  .post(authOptions.url, authOptions.data, { headers: authOptions.headers })
+  .then((response) => {
+    if (response.status === 200) {
+      token = response.data.access_token;
+      return token;
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching token:", error);
+  });
+
+let config = {
+  method: "get",
+  maxBodyLength: Infinity,
+  url: "https://api.spotify.com/v1/me/player",
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
+
+axios
+  .request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 function App() {
+  //const [data, setData] = useState({});
+
   return (
     <>
       <div>
